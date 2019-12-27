@@ -11,6 +11,7 @@ const createBoard = () => {
     let cardElement = document.createElement("img")
     cardElement.setAttribute("src", "images/back.png")
     cardElement.setAttribute("data-id", i)
+    cardElement.setAttribute("class", "cardImage")
     cardElement.addEventListener("click", function() {
       flipCard(this)
     })
@@ -36,13 +37,9 @@ const flipCard = card => {
 createBoard()
 
 const restartGame = () => {
-  const button = document.getElementById("reset")
-  console.log(button)
-  button.addEventListener("click", () => {
-    cardsInPlay = []
-    for (let i = 0; i < cards.length; i++) {
-      cardElement.setAttribute("src", "images/back.png")
-    }
+  let imageCard = document.querySelectorAll(".cardImage")
+  cardsInPlay = []
+  imageCard.forEach(img => {
+    img.setAttribute("src", "images/back.png")
   })
 }
-restartGame()
