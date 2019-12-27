@@ -8,9 +8,13 @@ let cardsInPlay = []
 
 const createBoard = () => {
   for (let i = 0; i < cards.length; i++) {
-    let newListItem = document.createElement("img")
-    console.log(newListItem)
-    // Logic here
+    let cardElement = document.createElement("img")
+    cardElement.setAttribute("src", "images/back.png")
+    cardElement.setAttribute("data-id", i)
+    cardElement.addEventListener("click", function() {
+      flipCard(this)
+    })
+    document.getElementById("game-board").append(cardElement)
   }
 }
 const checkForMatch = () => {
@@ -20,13 +24,25 @@ const checkForMatch = () => {
     alert("Sorry, try again.")
   }
 }
-const flipCard = cardId => {
-  console.log(cards[cardId].rank + "flipped queen")
+const flipCard = card => {
+  const cardId = card.getAttribute("data-id")
   cardsInPlay.push(cards[cardId].rank)
+  card.setAttribute("src", cards[cardId].cardImage)
   if (cardsInPlay.length === 2) {
     checkForMatch()
+    cardsInPlay = []
   }
 }
-flipCard(0)
-flipCard(2)
 createBoard()
+
+const restartGame = () => {
+  const button = document.getElementById("reset")
+  console.log(button)
+  button.addEventListener("click", () => {
+    cardsInPlay = []
+    for (let i = 0; i < cards.length; i++) {
+      cardElement.setAttribute("src", "images/back.png")
+    }
+  })
+}
+restartGame()
